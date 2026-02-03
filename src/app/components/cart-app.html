@@ -1,16 +1,9 @@
-<h2>Carro de compras</h2>
+<h2>Catalogo de productos App</h2>
 
-<div class="row">
-  @for (product of products; track $index) {
-    <div class="col-4 my-2">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">{{ product.name }}</h5>
-          <p class="card-text">{{ product.description }}</p>
-          <p class="card-text">{{ product.price }}</p>
-          <button class="btn btn-primary">Añadir al carrito</button>
-        </div>
-      </div>
-    </div>
-  }
-</div>
+<catalog [products]="products" (productEventEmitter)="onAddCart($event)" />
+
+@if (items.length > 0) {
+  <cart [items]="items" />
+} @else {
+  <div class="alert alert-warning">No hay items en el carrito</div>
+}
