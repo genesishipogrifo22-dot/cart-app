@@ -6,30 +6,16 @@ import { CartItem } from '../../models/cartItem';
   imports: [],
   templateUrl: './cart.html',
 })
-export class Cart implements OnChanges {
-  @Input() items: CartItem[] = [];
+export class Cart {
+  items: CartItem[] = [];
 
   total = 0;
 
-  @Output() idProductEventEmitter = new EventEmitter();
+  idProductEventEmitter = new EventEmitter();
 
-  ngOnChanges(changes: SimpleChanges): void {
-    let itemsChanges = changes['items'];
-    
-    this.calculateTotal();
-    this.saveSession();
-    
-  }
 
   onDeleteCart(id: number) {
     this.idProductEventEmitter.emit(id);
   }
 
-  calculateTotal(): void {
-    this.total = this.items.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
-  }
-
-  saveSession(): void {
-    sessionStorage.setItem('cart', JSON.stringify(this.items));
-  }
 }
